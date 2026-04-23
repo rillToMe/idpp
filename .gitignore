@@ -1,0 +1,38 @@
+# Rust 
+/target/
+Cargo.lock
+
+# VS Code Extension (Node.js) 
+vscode-extension/node_modules/
+vscode-extension/*.vsix
+
+# File ICO yang di-generate otomatis saat build 
+assets/idpp.ico
+
+# Windows 
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Editor & IDE 
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS & System
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Log & temp
+*.log
+*.tmp
+*.bak

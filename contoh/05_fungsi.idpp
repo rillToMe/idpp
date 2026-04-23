@@ -1,0 +1,13 @@
+// contoh fungsi
+buat fungsi faktorial dengan n
+    jika n kurang dari sama 1 maka
+        kembalikan 1.
+    selesai.
+    simpan sebelumnya sebagai jalankan faktorial dengan n kurang 1.
+    kembalikan n kali sebelumnya.
+selesai.
+
+untuk setiap i dalam rentang 1 sampai 10 lakukan
+    simpan hasil sebagai jalankan faktorial dengan i.
+    tulis i, "! = ", hasil, ".".
+selesai.

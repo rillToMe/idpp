@@ -1,0 +1,86 @@
+{
+  "If Statement": {
+    "prefix": "jika",
+    "body": [
+      "jika ${1:kondisi} maka",
+      "\t${2:tulis \"Benar.\".}",
+      "selesai."
+    ],
+    "description": "Template kondisi jika"
+  },
+  "If Else Statement": {
+    "prefix": "jikalain",
+    "body": [
+      "jika ${1:kondisi} maka",
+      "\t${2:tulis \"Benar.\".}",
+      "lainnya",
+      "\t${3:tulis \"Salah.\".}",
+      "selesai."
+    ],
+    "description": "Template kondisi jika-lainnya"
+  },
+  "While Loop": {
+    "prefix": "selama",
+    "body": [
+      "selama ${1:kondisi} lakukan",
+      "\t${2:tulis \"Looping\".}",
+      "selesai."
+    ],
+    "description": "Template loop selama"
+  },
+  "For Loop": {
+    "prefix": "untuk",
+    "body": [
+      "untuk setiap ${1:item} dalam ${2:daftar} lakukan",
+      "\t${3:tulis item.}",
+      "selesai."
+    ],
+    "description": "Template loop untuk setiap"
+  },
+  "Function": {
+    "prefix": "fungsi",
+    "body": [
+      "buat fungsi ${1:nama_fungsi} dengan ${2:parameter}",
+      "\t${3:kembalikan parameter.}",
+      "selesai."
+    ],
+    "description": "Template buat fungsi"
+  },
+  "Try Catch": {
+    "prefix": "coba",
+    "body": [
+      "coba",
+      "\t${1:// kode yang mungkin error}",
+      "tangkap galat",
+      "\t${2:tulis \"Error: \", galat, \".\".}",
+      "akhirnya",
+      "\t${3:// akan selalu jalan}",
+      "selesai."
+    ],
+    "description": "Template coba-tangkap galat"
+  },
+  "Dictionary": {
+    "prefix": "kamus",
+    "body": [
+      "simpan ${1:nama_kamus} sebagai kamus",
+      "\t${2:kunci1}: ${3:\"nilai1\"},",
+      "\t${4:kunci2}: ${5:\"nilai2\"}.",
+      "selesai."
+    ],
+    "description": "Template kamus baru"
+  },
+  "List": {
+    "prefix": "daftar",
+    "body": [
+      "simpan ${1:nama_daftar} sebagai daftar ${2:1, 2, 3}."
+    ],
+    "description": "Template daftar baru"
+  },
+  "Hello World": {
+    "prefix": "halo",
+    "body": [
+      "tulis \"Halo, Dunia!\".\n"
+    ],
+    "description": "Program Hello World ID++"
+  }
+}

@@ -1,0 +1,15 @@
+// contoh kamus
+simpan mahasiswa sebagai kamus
+    nama: "Citra Dewi",
+    nim: "2024001",
+    ipk: 3.85,
+    aktif: benar.
+selesai.
+tulis "Nama : ", mahasiswa ambil nama, ".".
+tulis "NIM  : ", mahasiswa ambil nim, ".".
+tulis "IPK  : ", mahasiswa ambil ipk, ".".
+tulis "Aktif: ", mahasiswa ambil aktif, ".".
+ubah mahasiswa ipk menjadi 3.90.
+tambah mahasiswa dengan prodi bernilai "Teknik Informatika".
+tulis "IPK baru : ", mahasiswa ambil ipk, ".".
+tulis "Prodi    : ", mahasiswa ambil prodi, ".".

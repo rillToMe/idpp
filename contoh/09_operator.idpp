@@ -1,0 +1,11 @@
+// Uji sintaks baru: = dan operator +, -, *, /
+simpan x = 10.
+simpan y = 3.
+simpan z = x + y.
+tulis "x + y = ", z.
+simpan a = x - y.
+tulis "x - y = ", a.
+simpan b = x * y.
+tulis "x * y = ", b.
+simpan c = x / y.
+tulis "x / y = ", c.

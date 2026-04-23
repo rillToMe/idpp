@@ -1,0 +1,26 @@
+// Test operator perbandingan simbol
+simpan x = 85.
+jika x >= 90 maka
+    tulis "A".
+atau jika x >= 80 maka
+    tulis "B".
+atau jika x >= 70 maka
+    tulis "C".
+lainnya
+    tulis "D".
+selesai.
+
+simpan a = 5.
+simpan b = 10.
+jika a != b maka
+    tulis "a tidak sama dengan b".
+selesai.
+jika a < b maka
+    tulis "a lebih kecil dari b".
+selesai.
+jika b > a maka
+    tulis "b lebih besar dari a".
+selesai.
+jika a == 5 maka
+    tulis "a sama dengan 5".
+selesai.

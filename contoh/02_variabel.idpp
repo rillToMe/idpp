@@ -1,0 +1,9 @@
+// contoh variabel
+simpan nama sebagai "Budi".
+simpan umur sebagai 17.
+simpan tinggi sebagai 175.5.
+simpan lulus sebagai benar.
+tulis "Nama   : ", nama, ".".
+tulis "Umur   : ", umur, " tahun.".
+tulis "Tinggi : ", tinggi, " cm.".
+tulis "Lulus  : ", lulus, ".".

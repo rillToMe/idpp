@@ -1,0 +1,37 @@
+[package]
+name = "idpp"
+version = "1.0.0"
+edition = "2021"
+description = "ID++ — Bahasa pemrograman berbahasa Indonesia"
+build = "build.rs"
+authors = ["ID++ Team"]
+license = "MIT"
+repository = "https://github.com/rillToMe/idpp"
+keywords = ["bahasa-indonesia", "programming-language", "interpreter"]
+
+[[bin]]
+name = "idpp"
+path = "src/main.rs"
+
+[dependencies]
+colored = "2.0"
+rustyline = "12.0"
+rand = "0.8"
+thiserror = "1.0"
+serde_json = "1.0"           # parse JSON response → Nilai::Kamus/Daftar
+
+reqwest = { version = "0.11", features = ["blocking", "json", "rustls-tls"], default-features = false }
+
+[target.'cfg(windows)'.dependencies]
+winreg = "0.52"
+
+[build-dependencies]
+winres = "0.1"     # embed ikon & metadata ke .exe Windows
+image = "0.24"     # konversi PNG ke ICO saat build
+ico = "0.3"        # buat file ICO multi-ukuran
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true             # binary lebih kecil

@@ -1,0 +1,11 @@
+// Test HTTP library ID++
+// Mengambil data dari API publik JSONPlaceholder
+
+tulis "=== GET request ===".
+simpan resp = http ambil "https://jsonplaceholder.typicode.com/todos/1".
+tulis "Status: ", resp ambil status.
+tulis "OK: ", resp ambil ok.
+simpan data = resp ambil json.
+tulis "ID: ", data ambil id.
+tulis "Judul: ", data ambil title.
+tulis "Selesai: ", data ambil completed.

@@ -1,0 +1,14 @@
+// contoh loop
+simpan i sebagai 1.
+selama i kurang dari sama 20 lakukan
+    jika i sisa 15 sama dengan 0 maka
+        tulis "FizzBuzz".
+    atau jika i sisa 3 sama dengan 0 maka
+        tulis "Fizz".
+    atau jika i sisa 5 sama dengan 0 maka
+        tulis "Buzz".
+    lainnya
+        tulis i.
+    selesai.
+    tambah i dengan 1.
+selesai.

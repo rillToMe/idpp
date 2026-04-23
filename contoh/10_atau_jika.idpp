@@ -1,0 +1,11 @@
+// Test kondisi dengan atau jika
+simpan x = 85.
+jika x lebih dari sama 90 maka
+    tulis "A".
+atau jika x lebih dari sama 80 maka
+    tulis "B".
+atau jika x lebih dari sama 70 maka
+    tulis "C".
+lainnya
+    tulis "D".
+selesai.

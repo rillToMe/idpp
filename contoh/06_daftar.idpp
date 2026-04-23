@@ -1,0 +1,13 @@
+// contoh daftar
+simpan nilai sebagai daftar 85, 92, 78, 95, 88, 90.
+simpan total sebagai 0.
+untuk setiap n dalam nilai lakukan
+    tambah total dengan n.
+selesai.
+simpan rata sebagai total bagi panjang nilai.
+simpan rata sebagai bulatkan rata.
+tulis "Nilai    : ", nilai, ".".
+tulis "Total    : ", total, ".".
+tulis "Rata-rata: ", rata, ".".
+tulis "Terbaik  : ", maks nilai, ".".
+tulis "Terburuk : ", min nilai, ".".

@@ -1,0 +1,12 @@
+// contoh kondisi
+tanya "Masukkan nilai (0-100):" simpan ke nilai.
+simpan nilai sebagai angka dari nilai.
+jika nilai lebih dari sama 90 maka
+    tulis "Predikat A — Sangat Baik.".
+atau jika nilai lebih dari sama 80 maka
+    tulis "Predikat B — Baik.".
+atau jika nilai lebih dari sama 70 maka
+    tulis "Predikat C — Cukup.".
+lainnya
+    tulis "Predikat D — Perlu belajar lagi.".
+selesai.

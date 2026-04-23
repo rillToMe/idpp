@@ -1,0 +1,16 @@
+// contoh error
+buat fungsi bagi dengan a dan b
+    jika b sama dengan 0 maka
+        lempar "Pembagi tidak boleh nol!".
+    selesai.
+    kembalikan a bagi b.
+selesai.
+
+coba
+    simpan hasil sebagai jalankan bagi dengan 10 dan 0.
+    tulis hasil.
+tangkap galat
+    tulis "Ditangkap: ", galat, ".".
+akhirnya
+    tulis "Blok akhirnya selalu jalan.".
+selesai.
