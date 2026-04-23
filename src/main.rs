@@ -2,6 +2,9 @@
 
 mod ast;
 mod builtin;
+mod bytecode;
+mod cache;
+mod compiler;
 mod environment;
 mod error;
 mod interpreter;
@@ -10,6 +13,7 @@ mod network;
 mod parser;
 mod repl;
 mod token;
+mod vm;
 
 use colored::*;
 use std::env;
@@ -39,8 +43,21 @@ fn main() {
         2 => match args[1].as_str() {
             "--versi" | "-v" => tampilkan_versi(),
             "--bantuan" | "-b" => tampilkan_bantuan(),
-            path => jalankan_file(path),
+            "--no-cache" => {
+                eprintln!("{}", "Error: --no-cache membutuhkan file.".red());
+                process::exit(1);
+            }
+            path => jalankan_file(path, true),
         },
+        3 => {
+            if args[1] == "--no-cache" {
+                jalankan_file(&args[2], false);
+            } else {
+                eprintln!("{}", "Error: Argumen tidak dikenal.".red());
+                tampilkan_bantuan();
+                process::exit(1);
+            }
+        }
         _ => {
             eprintln!("{}", "Error: Terlalu banyak argumen.".red());
             tampilkan_bantuan();
@@ -157,20 +174,36 @@ fn tampilkan_versi() {
 fn tampilkan_bantuan() {
     println!("\n{}", "Penggunaan: idpp <file.idpp>".bold());
     println!("\nPerintah:");
-    println!("  idpp file.idpp      Jalankan file ID++");
-    println!("  idpp --versi        Tampilkan versi");
-    println!("  idpp --bantuan      Tampilkan bantuan ini");
-    println!("  idpp                Masuk mode interaktif (REPL)");
+    println!("  idpp file.idpp          Jalankan file ID++");
+    println!("  idpp --no-cache f.idpp  Jalankan tanpa cache");
+    println!("  idpp --versi            Tampilkan versi");
+    println!("  idpp --bantuan          Tampilkan bantuan ini");
+    println!("  idpp                    Masuk mode interaktif (REPL)");
     println!("\nContoh:");
     println!("  idpp halo.idpp");
-    println!("  idpp program/utama.idpp\n");
+    println!("  idpp --no-cache halo.idpp\n");
 }
 
-fn jalankan_file(path: &str) {
+fn jalankan_file(path: &str, use_cache: bool) {
     if !path.ends_with(".idpp") {
         eprintln!("{}", "Peringatan: Ekstensi file biasanya .idpp".yellow());
     }
 
+    let cache_file = cache::cache_path(path);
+
+    // Coba load dari cache
+    if use_cache && cache::cache_valid(path, &cache_file) {
+        if let Ok(program) = cache::muat_cache(&cache_file) {
+            let mut mesin = vm::VM::new();
+            if let Err(e) = mesin.run(&program) {
+                eprintln!("{}", e.to_string().red());
+                process::exit(1);
+            }
+            return;
+        }
+    }
+
+    // Parse dari source
     let source = match fs::read_to_string(path) {
         Ok(s) => s,
         Err(e) => {
@@ -185,8 +218,18 @@ fn jalankan_file(path: &str) {
             let mut parser = Parser::new(tokens);
             match parser.parse() {
                 Ok(stmts) => {
-                    let mut interpreter = Interpreter::new();
-                    if let Err(e) = interpreter.run(stmts) {
+                    // Compile ke bytecode
+                    let comp = compiler::Compiler::new();
+                    let program = comp.compile(&stmts);
+
+                    // Simpan cache (silent fail)
+                    if use_cache {
+                        let _ = cache::simpan_cache(&cache_file, &program);
+                    }
+
+                    // Eksekusi via VM
+                    let mut mesin = vm::VM::new();
+                    if let Err(e) = mesin.run(&program) {
                         eprintln!("{}", e.to_string().red());
                         process::exit(1);
                     }

@@ -15,6 +15,8 @@
 
 ID++ adalah bahasa pemrograman sederhana yang menggunakan bahasa Indonesia sebagai sintaksisnya. Tujuan utamanya adalah untuk mempermudah siapa saja, khususnya pemula, dalam belajar logika pemrograman tanpa terkendala oleh hambatan bahasa Inggris.
 
+Dilengkapi dengan **Virtual Machine (VM) Stack-based** dan **Bytecode Caching** untuk performa runtime yang cepat dan responsif!
+
 ## Instalasi
 
 ID++ tersedia untuk Windows, macOS, dan Linux.
@@ -49,10 +51,26 @@ Untuk menjalankan file:
 idpp program.idpp
 ```
 
+*(ID++ secara otomatis akan melakukan compile dan membuat file cache `program.idppc`. Pada eksekusi berikutnya, ID++ akan langsung meload cache tersebut sehingga jauh lebih cepat!)*
+
+Untuk menjalankan file **tanpa cache** (memaksa compile ulang):
+```sh
+idpp --no-cache program.idpp
+```
+
 Untuk masuk ke mode interaktif (REPL):
 ```sh
 idpp
 ```
+
+## Arsitektur VM & Bytecode Caching ⚡
+
+ID++ 1.0.0 tidak lagi menggunakan sekadar tree-walking interpreter, namun sudah beralih ke **Stack-based Virtual Machine**. 
+
+Alur kerja ID++ sekarang:
+1. **Eksekusi Pertama:** File `.idpp` → Lexer → Parser → AST → Compiler → **Bytecode** → Eksekusi oleh VM.
+2. **Cache Dibuat:** Bytecode kemudian disimpan sebagai file `.idppc` di folder yang sama.
+3. **Eksekusi Berikutnya:** ID++ mengecek timestamp (waktu modifikasi). Jika file sumber tidak berubah, ID++ akan **melewati** proses Parsing & Compiling, dan langsung mengeksekusi bytecode dari cache!
 
 ## Ekstensi VS Code
 

@@ -1,6 +1,10 @@
 # Rust 
 /target/
 Cargo.lock
+*.idppc
+
+# inno installer
+installer_build/
 
 # VS Code Extension (Node.js) 
 vscode-extension/node_modules/
