@@ -29,8 +29,6 @@ winreg = "0.52"
 
 [build-dependencies]
 winres = "0.1"     # embed ikon & metadata ke .exe Windows
-image = "0.24"     # konversi PNG ke ICO saat build
-ico = "0.3"        # buat file ICO multi-ukuran
 
 [profile.release]
 opt-level = 3

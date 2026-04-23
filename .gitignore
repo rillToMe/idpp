@@ -11,8 +11,6 @@ installer_build/
 vscode-extension/node_modules/
 vscode-extension/*.vsix
 
-# File ICO yang di-generate otomatis saat build 
-assets/idpp.ico
 
 # Windows 
 Thumbs.db
