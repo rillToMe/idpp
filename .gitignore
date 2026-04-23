@@ -2,6 +2,7 @@
 /target/
 Cargo.lock
 *.idppc
+test.idpp
 
 # inno installer
 installer_build/
