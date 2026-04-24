@@ -2,7 +2,7 @@
 
 $ErrorActionPreference = "Stop"
 
-$TARGET = "idpp-x86_64-pc-windows-msvc.exe"
+$TARGET = "IDPP_Setup_v0.1.0_Windows.exe"
 $URL = "https://github.com/rillToMe/idpp/releases/latest/download/$TARGET"
 
 $InstallDir = "$env:LOCALAPPDATA\idpp"
