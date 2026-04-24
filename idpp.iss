@@ -1,6 +1,6 @@
 [Setup]
 AppName=ID++
-AppVersion=0.1.0
+AppVersion=0.1.1
 AppPublisher=KyuzenStudio
 AppPublisherURL=https://github.com/rillToMe/idpp
 AppSupportURL=https://github.com/rillToMe/idpp/issues
@@ -9,7 +9,7 @@ AppUpdatesURL=https://github.com/rillToMe/idpp/releases
 DefaultDirName={autopf}\ID++
 DisableProgramGroupPage=yes
 LicenseFile=LICENSE
-OutputBaseFilename=IDPP_Setup_v0.1.0
+OutputBaseFilename=IDPP_Setup_v0.1.1
 OutputDir=installer_build
 SetupIconFile=assets\idpp.ico
 Compression=lzma2/ultra64

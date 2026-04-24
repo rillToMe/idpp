@@ -1,0 +1,14 @@
+// lib/matematika.idpp
+// Kumpulan fungsi matematika yang bisa diimpor
+
+buat fungsi kuadrat dengan n
+    kembalikan n * n.
+selesai.
+
+buat fungsi kubik dengan n
+    kembalikan n * n * n.
+selesai.
+
+buat fungsi jumlah_dua dengan a dan b
+    kembalikan a + b.
+selesai.

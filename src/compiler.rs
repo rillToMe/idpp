@@ -220,7 +220,31 @@ impl Compiler {
                 let kid = self.str_id(kunci);
                 self.emit(OpCode::InsertKamusKey(vid, kid));
             }
-            Stmt::AmbilModul(_, _) => { /* belum implementasi */ }
+            Stmt::AmbilModul(path, _line) => {
+                use std::path::Path;
+
+                // Resolusi path: tambahkan .idpp jika tidak ada ekstensi
+                let file_path = Path::new(path.as_str());
+                let resolved = if file_path.extension().is_some() {
+                    file_path.to_path_buf()
+                } else {
+                    file_path.with_extension("idpp")
+                };
+
+                // Load dan parse file impor
+                if let Ok(source) = std::fs::read_to_string(&resolved) {
+                    if let Ok(tokens) = crate::lexer::Lexer::new(&source).tokenize() {
+                        if let Ok(stmts) = crate::parser::Parser::new(tokens).parse() {
+                            // Inline-compile semua statement dari file yang diimpor
+                            for s in &stmts {
+                                self.compile_stmt(s);
+                            }
+                        }
+                    }
+                }
+                // Jika file tidak ditemukan, runtime error akan ditangani oleh interpreter
+                // (compiler tidak bisa return error dari sini karena compile_stmt → ())
+            }
         }
     }
 

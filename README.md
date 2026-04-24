@@ -5,7 +5,7 @@
 
   **Bahasa pemrograman yang sintaksnya seperti kalimat Indonesia sehari-hari.**
 
-  [![Versi](https://img.shields.io/badge/versi-0.1.0-blue?style=flat-square)](https://github.com/rillToMe/idpp/releases)
+  [![Versi](https://img.shields.io/badge/versi-0.1.1-blue?style=flat-square)](https://github.com/rillToMe/idpp/releases)
   [![Lisensi](https://img.shields.io/badge/lisensi-MIT-green?style=flat-square)](LICENSE)
   [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey?style=flat-square)](https://github.com/rillToMe/idpp/releases)
   [![Dibuat dengan Rust](https://img.shields.io/badge/dibuat%20dengan-Rust-orange?style=flat-square&logo=rust)](https://www.rust-lang.org)

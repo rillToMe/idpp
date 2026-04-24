@@ -59,11 +59,53 @@ impl Interpreter {
             Stmt::UbahKamus { nama, kunci, nilai, line } => self.exec_ubah_kamus(nama, kunci, nilai, *line),
             Stmt::TambahKamus { nama, kunci, nilai, line } => self.exec_tambah_kamus(nama, kunci, nilai, *line),
             Stmt::EksporFungsi { nama, params, tubuh, line } => self.exec_buat_fungsi(nama, params, tubuh, *line), // Sementara sama dengan BuatFungsi
-            Stmt::AmbilModul(_nama, _) => {
-                // Sederhana: belum implementasi file inclusion yang sebenarnya
-                Ok(ControlFlow::Normal)
+            Stmt::AmbilModul(path, line) => self.exec_impor(path, *line),
+        }
+    }
+
+    fn exec_impor(&mut self, path: &str, line: usize) -> Result<ControlFlow, IdppError> {
+        use std::path::Path;
+
+        // Cari file relatif terhadap current working directory
+        let file_path = Path::new(path);
+
+        // Coba cari dengan ekstensi .idpp jika tidak ada ekstensi
+        let resolved = if file_path.extension().is_some() {
+            file_path.to_path_buf()
+        } else {
+            file_path.with_extension("idpp")
+        };
+
+        let source = std::fs::read_to_string(&resolved).map_err(|_| IdppError::Runtime {
+            line,
+            pesan: format!("Tidak bisa membuka file impor: '{}'", resolved.display()),
+        })?;
+
+        // Tokenisasi
+        let mut lexer = crate::lexer::Lexer::new(&source);
+        let tokens = lexer.tokenize().map_err(|e| IdppError::Runtime {
+            line,
+            pesan: format!("Error saat tokenisasi '{}': {}", resolved.display(), e),
+        })?;
+
+        // Parse menjadi AST
+        let mut parser = crate::parser::Parser::new(tokens);
+        let stmts = parser.parse().map_err(|e| IdppError::Runtime {
+            line,
+            pesan: format!("Error saat parsing '{}': {}", resolved.display(), e),
+        })?;
+
+        // Eksekusi langsung dalam environment saat ini
+        // Sehingga fungsi dan variabel dari modul tersedia di program pemanggil
+        for stmt in &stmts {
+            match self.exec_stmt(stmt)? {
+                ControlFlow::Normal => {}
+                ControlFlow::Return(_) => break,
+                other => return Ok(other),
             }
         }
+
+        Ok(ControlFlow::Normal)
     }
 
     fn exec_tulis(&mut self, exprs: &[Expr]) -> Result<ControlFlow, IdppError> {

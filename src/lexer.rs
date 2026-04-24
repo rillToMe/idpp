@@ -581,6 +581,7 @@ impl Lexer {
 
             // Modul
             "ekspor" => Ok(TokenKind::Ekspor),
+            "impor"  => Ok(TokenKind::AmbilModul),
 
             // Network / HTTP
             "http" => {

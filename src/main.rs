@@ -24,7 +24,7 @@ use interpreter::Interpreter;
 use lexer::Lexer;
 use parser::Parser;
 
-const VERSION: &str = "1.0.0";
+const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 /// Byte ICO yang di-embed langsung ke dalam binary saat kompilasi
 /// File ini dibuat otomatis oleh build.rs dari assets/idpp.png
@@ -41,7 +41,7 @@ fn main() {
     match args.len() {
         1 => repl::mulai(),
         2 => match args[1].as_str() {
-            "--versi" | "-v" => tampilkan_versi(),
+            "--versi" | "-v" | "--version" => tampilkan_versi(),
             "--bantuan" | "-b" => tampilkan_bantuan(),
             "--no-cache" => {
                 eprintln!("{}", "Error: --no-cache membutuhkan file.".red());

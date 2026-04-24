@@ -1,0 +1,13 @@
+// 13_impor.idpp - Contoh penggunaan kata kunci "impor"
+// Jalankan dari root project: idpp contoh/13_impor.idpp
+
+impor "contoh/lib/matematika.idpp".
+
+simpan a = 5.
+simpan hasil_kuadrat = jalankan kuadrat dengan a.
+simpan hasil_kubik   = jalankan kubik dengan a.
+simpan hasil_jumlah  = jalankan jumlah_dua dengan 10 dan 20.
+
+tulis "Kuadrat dari ", a, " = ", hasil_kuadrat.
+tulis "Kubik dari   ", a, " = ", hasil_kubik.
+tulis "10 + 20      = ", hasil_jumlah.

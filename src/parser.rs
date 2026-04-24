@@ -647,17 +647,18 @@ impl Parser {
     fn parse_jalankan_expr(&mut self) -> Result<Expr, IdppError> {
         let line = self.advance().line; // jalankan
         let nama = self.parse_identifier()?;
-        
+
         let mut args = Vec::new();
         if self.check(&TokenKind::Dengan) {
             self.advance();
-            args.push(self.parse_expr()?);
+            // Parse argumen pada level comparison agar 'dan' tidak dikonsumsi sebagai AND
+            args.push(self.parse_comparison()?);
             while self.check(&TokenKind::Dan) {
                 self.advance();
-                args.push(self.parse_expr()?);
+                args.push(self.parse_comparison()?);
             }
         }
-        
+
         Ok(Expr::JalankanFungsi { nama, args, line })
     }
 
