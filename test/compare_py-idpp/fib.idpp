@@ -1,0 +1,20 @@
+buat fungsi fib dengan n
+    jika n kurang dari 2 maka
+        kembalikan n.
+    selesai.
+
+    // Simpan hasil ke variabel sementara karena VM stack 
+    // perlu menangani operan satu per satu
+    simpan n1 = n - 1.
+    simpan n2 = n - 2.
+    
+    simpan hasil1 = jalankan fib dengan n1.
+    simpan hasil2 = jalankan fib dengan n2.
+    
+    kembalikan hasil1 + hasil2.
+selesai.
+
+simpan angka = 25.
+tulis "Menghitung Fibonacci ke-", angka, "...".
+simpan akhir = jalankan fib dengan angka.
+tulis "Hasil: ", akhir.

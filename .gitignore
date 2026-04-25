@@ -11,7 +11,6 @@ installer_build/
 vscode-extension/node_modules/
 vscode-extension/*.vsix
 
-
 # Windows 
 Thumbs.db
 ehthumbs.db

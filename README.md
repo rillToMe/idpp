@@ -5,7 +5,7 @@
 
   **Bahasa pemrograman yang sintaksnya seperti kalimat Indonesia sehari-hari.**
 
-  [![Versi](https://img.shields.io/badge/versi-0.1.1-blue?style=flat-square)](https://github.com/rillToMe/idpp/releases)
+  [![Versi](https://img.shields.io/badge/versi-0.2.0-blue?style=flat-square)](https://github.com/rillToMe/idpp/releases)
   [![Lisensi](https://img.shields.io/badge/lisensi-MIT-green?style=flat-square)](LICENSE)
   [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey?style=flat-square)](https://github.com/rillToMe/idpp/releases)
   [![Dibuat dengan Rust](https://img.shields.io/badge/dibuat%20dengan-Rust-orange?style=flat-square&logo=rust)](https://www.rust-lang.org)
@@ -62,6 +62,51 @@ Untuk masuk ke mode interaktif (REPL):
 ```sh
 idpp
 ```
+
+## Package Manager `rak` 📦
+
+ID++ kini dilengkapi dengan **`rak`**, package manager resmi untuk mengelola proyek dan dependensi modul `.idpp`.
+
+### Install `rak`
+```sh
+cargo install --path rak
+```
+
+### Membuat Proyek Baru
+```sh
+rak buat nama_proyek
+cd nama_proyek
+rak jalan
+```
+
+Perintah di atas akan membuat struktur berikut:
+```
+nama_proyek/
+├── rak.toml
+└── src/
+    └── utama.idpp
+```
+
+### Format `rak.toml`
+```toml
+[proyek]
+nama = "nama_proyek"
+versi = "0.1.0"
+titik_masuk = "src/utama.idpp"
+
+[dependensi]
+# Dependensi berupa URL langsung ke file .idpp raw
+matematika = "https://raw.githubusercontent.com/user/repo/main/math.idpp"
+```
+
+### Perintah `rak`
+
+| Perintah | Keterangan |
+|---|---|
+| `rak buat <nama>` | Membuat proyek baru dengan struktur standar |
+| `rak pasang` | Mengunduh semua dependensi ke `.rak_modul/` |
+| `rak jalan` | Menjalankan program via `idpp <titik_masuk>` |
+
 
 ## Arsitektur VM & Bytecode Caching ⚡
 

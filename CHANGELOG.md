@@ -7,9 +7,19 @@ dan proyek ini mengikuti [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ---
 
-## [0.1.1] - 2026-04-24
+## [0.2.0] - 2026-04-25
 
 ### Ditambahkan
+- **Package Manager `rak`**: CLI tool resmi untuk mengelola proyek dan dependensi ID++. Tersedia sebagai crate terpisah dalam workspace.
+  - **`rak buat <nama_proyek>`**: Membuat folder proyek baru lengkap dengan `rak.toml` dan file `src/utama.idpp` berisi kode default.
+  - **`rak pasang`**: Membaca blok `[dependensi]` di `rak.toml`, mengunduh setiap file `.idpp` dari URL yang didefinisikan secara synchronous, dan menyimpannya ke folder `.rak_modul/`.
+  - **`rak jalan`**: Membaca field `titik_masuk` dari `rak.toml` lalu men-spawn proses `idpp <titik_masuk>` dengan I/O yang diteruskan langsung ke terminal.
+
+- **Format Manifest `rak.toml`**: File konfigurasi proyek berbasis TOML dengan blok `[proyek]` (nama, versi, titik_masuk) dan blok `[dependensi]` (nama = URL).
+- **Pesan Error Berbahasa Indonesia**: Seluruh pesan error `rak` menggunakan bahasa Indonesia yang ramah pengguna beserta emoji untuk keterbacaan.
+
+### Diperbaiki
+- **Bug parsing argumen fungsi**: Pemanggilan fungsi dengan lebih dari satu argumen (`jalankan f dengan a dan b`) sebelumnya salah mem-parse `dan` sebagai operator logika AND, sehingga argumen kedua tidak terdeteksi. Sekarang `dan` di antara argumen berfungsi sebagai pemisah dengan benar.
 - **Kata kunci `impor`**: Memuat dan mengeksekusi file `.idpp` lain ke dalam program. Fungsi dan variabel dari file yang diimpor langsung tersedia di program pemanggil.
   ```idpp
   impor "lib/matematika.idpp".
@@ -19,8 +29,9 @@ dan proyek ini mengikuti [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 - **Contoh modul**: Ditambahkan folder `contoh/lib/` beserta `matematika.idpp` sebagai contoh modul yang bisa diimpor.
 - **Contoh penggunaan impor**: Ditambahkan `contoh/13_impor.idpp`.
 
-### Diperbaiki
-- **Bug parsing argumen fungsi**: Pemanggilan fungsi dengan lebih dari satu argumen (`jalankan f dengan a dan b`) sebelumnya salah mem-parse `dan` sebagai operator logika AND, sehingga argumen kedua tidak terdeteksi. Sekarang `dan` di antara argumen berfungsi sebagai pemisah dengan benar.
+
+### Teknis
+- Library yang digunakan: `clap 4` (CLI parsing), `serde + toml 0.8` (manifest parsing), `reqwest 0.12 (blocking)` (HTTP download).
 
 ---
 
@@ -46,5 +57,6 @@ dan proyek ini mengikuti [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ---
 
+[0.2.0]: https://github.com/rillToMe/idpp/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/rillToMe/idpp/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/rillToMe/idpp/releases/tag/v0.1.0

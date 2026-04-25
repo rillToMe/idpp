@@ -20,8 +20,9 @@ fn main() {
         res.set("FileDescription", "Bahasa Pemrograman Indonesia ID++");
         res.set("CompanyName", "KyuzenStudio");
         res.set("LegalCopyright", "Copyright \u{00a9} 2026 KyuzenStudio");
-        res.set("FileVersion", "0.1.1.0");
-        res.set("ProductVersion", "0.1.1.0");
+        let version = format!("{}.0", env!("CARGO_PKG_VERSION"));
+        res.set("FileVersion", &version);
+        res.set("ProductVersion", &version);
         res.set_version_info(winres::VersionInfo::PRODUCTVERSION, 0x0000000100010000);
 
         if let Err(e) = res.compile() {

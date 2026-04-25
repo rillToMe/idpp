@@ -12,7 +12,7 @@ if ($cmd) {
     $idppExe = "$env:USERPROFILE\.cargo\bin\idpp.exe"
 }
 
-# Path ke file ICO — gunakan yang ada di folder proyek
+# Path ke file ICO - gunakan yang ada di folder proyek
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $icoPath   = Join-Path $scriptDir "assets\idpp.ico"
 

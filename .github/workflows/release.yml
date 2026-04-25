@@ -14,20 +14,19 @@ jobs:
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            artifact_name: idpp
-            asset_name: idpp-x86_64-unknown-linux-gnu
+            asset_name: idpp-x86_64-unknown-linux-gnu.tar.gz
+
           - os: macos-latest
             target: x86_64-apple-darwin
-            artifact_name: idpp
-            asset_name: idpp-x86_64-apple-darwin
+            asset_name: idpp-x86_64-apple-darwin.tar.gz
+
           - os: macos-latest
             target: aarch64-apple-darwin
-            artifact_name: idpp
-            asset_name: idpp-aarch64-apple-darwin
+            asset_name: idpp-aarch64-apple-darwin.tar.gz
+
           - os: windows-latest
             target: x86_64-pc-windows-msvc
-            artifact_name: idpp.exe
-            asset_name: idpp-x86_64-pc-windows-msvc.exe
+            asset_name: idpp-x86_64-pc-windows-msvc.zip
 
     steps:
       - uses: actions/checkout@v3
@@ -37,20 +36,61 @@ jobs:
         with:
           targets: ${{ matrix.target }}
 
+      # Build otomatis nge-build 'idpp' dan 'rak' karena format Workspace
       - name: Build Release
         run: cargo build --release --target ${{ matrix.target }}
 
-      - name: Rename Artifact (Unix)
+      - name: Package Artifact (Unix)
         if: matrix.os != 'windows-latest'
-        run: mv target/${{ matrix.target }}/release/${{ matrix.artifact_name }} ./${{ matrix.asset_name }}
+        run: |
+          cd target/${{ matrix.target }}/release/
+          tar -czvf ../../../../${{ matrix.asset_name }} idpp rak
 
-      - name: Rename Artifact (Windows)
+      - name: Package Artifact (Windows)
         if: matrix.os == 'windows-latest'
-        run: Move-Item -Path target\${{ matrix.target }}\release\${{ matrix.artifact_name }} -Destination .\${{ matrix.asset_name }}
+        run: Compress-Archive -Path target\${{ matrix.target }}\release\idpp.exe, target\${{ matrix.target }}\release\rak.exe -DestinationPath .\${{ matrix.asset_name }}
 
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v1
         with:
           files: ./${{ matrix.asset_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-installer-windows:
+    name: Build Windows Installer (ISS)
+    runs-on: windows-latest
+    needs: build
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build Release Binary
+        run: cargo build --release
+
+      - name: Install Inno Setup
+        run: choco install innosetup --no-progress -y
+
+      - name: Get version from tag
+        id: version
+        run: echo "VERSION=$($env:GITHUB_REF_NAME -replace '^v','')" >> $env:GITHUB_OUTPUT
+
+      - name: Update version in ISS
+        run: |
+          (Get-Content idpp.iss) -replace 'AppVersion=.*', "AppVersion=${{ steps.version.outputs.VERSION }}" |
+          Set-Content idpp.iss
+          (Get-Content idpp.iss) -replace 'OutputBaseFilename=.*', "OutputBaseFilename=IDPP_Setup_v${{ steps.version.outputs.VERSION }}" |
+          Set-Content idpp.iss
+
+      - name: Build ISS Installer
+        run: iscc idpp.iss
+
+      - name: Upload Installer to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: installer_build/IDPP_Setup_v${{ steps.version.outputs.VERSION }}.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

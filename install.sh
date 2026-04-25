@@ -22,26 +22,30 @@ fi
 
 if [ "$OS" = "macos" ]; then
     if [ "$ARCH" = "x86_64" ]; then
-        TARGET="idpp-x86_64-apple-darwin"
+        TARGET="idpp-x86_64-apple-darwin.tar.gz"
     else
-        TARGET="idpp-aarch64-apple-darwin"
+        TARGET="idpp-aarch64-apple-darwin.tar.gz"
     fi
 elif [ "$OS" = "linux" ]; then
-    TARGET="idpp-x86_64-unknown-linux-gnu"
+    TARGET="idpp-x86_64-unknown-linux-gnu.tar.gz"
 else
     echo "Sistem operasi tidak didukung: $OS"
     exit 1
 fi
 
-# URL rilis (sesuaikan dengan repository kamu)
+# URL rilis
 URL="https://github.com/rillToMe/idpp/releases/latest/download/$TARGET"
 
-echo "Mengunduh ID++ untuk $OS ($ARCH)..."
-curl -sL -o /tmp/idpp "$URL"
+echo "Mengunduh ID++ dan Rak untuk $OS ($ARCH)..."
+curl -sL -o /tmp/idpp_temp.tar.gz "$URL"
 
-echo "Memasang ke /usr/local/bin/idpp (mungkin membutuhkan akses sudo)..."
-sudo mv /tmp/idpp /usr/local/bin/idpp
-sudo chmod +x /usr/local/bin/idpp
+echo "Mengekstrak dan memasang ke /usr/local/bin/ (mungkin membutuhkan akses sudo)..."
+sudo tar -xzf /tmp/idpp_temp.tar.gz -C /usr/local/bin/
+sudo chmod +x /usr/local/bin/idpp /usr/local/bin/rak
 
-echo "Instalasi selesai! Coba jalankan: idpp --versi"
-idpp --versi
+# Bersihkan file temp
+rm /tmp/idpp_temp.tar.gz
+
+echo "Instalasi selesai! Coba jalankan:"
+echo "  idpp --versi"
+echo "  rak --help"

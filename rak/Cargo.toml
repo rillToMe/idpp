@@ -1,0 +1,21 @@
+[package]
+name = "rak"
+version.workspace = true
+edition.workspace = true
+description = "Package Manager resmi untuk bahasa pemrograman ID++"
+authors.workspace = true
+
+[[bin]]
+name = "rak"
+path = "src/main.rs"
+
+[dependencies]
+# Parsing argumen CLI
+clap = { version = "4", features = ["derive"] }
+
+# Serialisasi / Deserialisasi
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"
+
+# HTTP request (blocking / synchronous)
+reqwest = { version = "0.12", features = ["blocking"] }

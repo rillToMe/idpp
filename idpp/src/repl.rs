@@ -57,7 +57,7 @@ pub fn mulai() {
             Ok(line) => {
                 let trimmed = line.trim();
 
-                // ── Perintah REPL khusus (hanya di awal, tanpa buffer) ──────────
+                // Perintah REPL khusus (hanya di awal, tanpa buffer)
                 if buffer.is_empty() && trimmed.starts_with('.') {
                     match trimmed {
                         ".keluar" | ".exit" => {
@@ -94,14 +94,14 @@ pub fn mulai() {
                     }
                 }
 
-                // ── Enter kosong: batalkan buffer atau evaluasi paksa ────────────
+                // Enter kosong: batalkan buffer atau evaluasi paksa
                 if trimmed.is_empty() {
                     if buffer.is_empty() {
                         continue; // tidak ada yang dilakukan
                     }
                     // Jika masih ada blok terbuka, minta ditutup dulu
                     if ada_blok_terbuka(&buffer) {
-                        println!("{}", "(Ada blok yang belum ditutup dengan 'selesai.' — lanjutkan atau Ctrl+C untuk batal)".dimmed());
+                        println!("{}", "(Ada blok yang belum ditutup dengan 'selesai.' - lanjutkan atau Ctrl+C untuk batal)".dimmed());
                         continue;
                     }
                     // Buffer tidak kosong dan tidak ada blok terbuka → evaluasi sekarang
@@ -111,7 +111,7 @@ pub fn mulai() {
                     continue;
                 }
 
-                // ── Tambahkan baris ke buffer ────────────────────────────────────
+                // Tambahkan baris ke buffer 
                 buffer.push_str(trimmed);
                 buffer.push('\n');
                 rl.add_history_entry(trimmed).unwrap();
